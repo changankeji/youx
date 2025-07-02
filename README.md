@@ -5,6 +5,12 @@
     <a href="#快速部署"><strong>添加了api  可以自动创建邮箱  返回内容</strong></a> •
     <a href="#本地开发"><strong>💻 本地开发</strong></a> •
     <a href="#技术栈"><strong>🔧 技术栈</strong></a>
+  POST /api/auto-mail
+自动生成一个邮箱，并自动生成一封内容为该邮箱地址的邮件，直接返回该邮件的txt文本（即邮箱地址本身）。
+GET /api/last-mail/:address
+输入邮箱地址，返回该邮箱收到的最新一封邮件的内容（txt文本）。如果没有邮件或邮箱不存在，会返回相应提示。
+你只需重新部署 worker 服务即可使用这两个API。
+如需API使用示例或有其他需求，欢迎继续提问！
   </p>
 # <div align="center">🚀 ZMAIL - 24小时临时邮箱服务</div>
 
