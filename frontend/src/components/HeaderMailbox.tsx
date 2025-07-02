@@ -3,8 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { createRandomMailbox, createCustomMailbox } from '../utils/api';
 import MailboxSwitcher from './MailboxSwitcher';
 
+// 定义Mailbox类型，避免import type失败
+interface Mailbox {
+  id: string;
+  address: string;
+  createdAt: number;
+  expiresAt: number;
+  lastAccessed: number;
+  ipAddress?: string;
+}
+
 interface HeaderMailboxProps {
-  mailbox: Mailbox | null;
+  mailbox: Mailbox;
   onMailboxChange: (mailbox: Mailbox) => void;
   domain: string;
   domains: string[];
@@ -64,7 +74,8 @@ const HeaderMailbox: React.FC<HeaderMailboxProps> = ({
     // 清除之前的错误信息
     setCopyError(null);
     
-    const fullAddress = mailbox.address.includes('@') ? mailbox.address : `${mailbox.address}@${selectedDomain}`;
+    // 拼接完整邮箱地址，并去除所有空格和换行
+    const fullAddress = (mailbox.address.includes('@') ? mailbox.address : `${mailbox.address}@${selectedDomain}`).replace(/\s+/g, '');
     navigator.clipboard.writeText(fullAddress)
       .then(() => {
         // 显示复制成功提示
