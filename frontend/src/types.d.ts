@@ -10,8 +10,9 @@ interface Mailbox {
   address: string;
   createdAt: number;
   expiresAt: number;
+  ipAddress: string;
   lastAccessed: number;
-  ipAddress?: string;
+  secret: string;
 }
 
 interface Email {
