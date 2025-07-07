@@ -1,0 +1,162 @@
+2025-07-07T16:37:13.302Z	Initializing build environment...
+2025-07-07T16:37:41.307Z	Success: Finished initializing build environment
+2025-07-07T16:37:42.238Z	Cloning repository...
+2025-07-07T16:37:43.790Z	Restoring from dependencies cache
+2025-07-07T16:37:43.797Z	Restoring from build output cache
+2025-07-07T16:37:46.355Z	Detected the following tools from environment: pnpm@10.12.1, nodejs@22.16.0
+2025-07-07T16:37:49.319Z	Installing project dependencies: pnpm install --frozen-lockfile
+2025-07-07T16:37:50.397Z	Scope: all 3 workspace projects
+2025-07-07T16:37:50.545Z	Lockfile is up to date, resolution step is skipped
+2025-07-07T16:37:50.718Z	Progress: resolved 1, reused 0, downloaded 0, added 0
+2025-07-07T16:37:50.823Z	Packages: +325
+2025-07-07T16:37:50.824Z	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2025-07-07T16:37:51.732Z	Progress: resolved 325, reused 0, downloaded 2, added 0
+2025-07-07T16:37:52.749Z	Progress: resolved 325, reused 0, downloaded 18, added 4
+2025-07-07T16:37:54.313Z	Progress: resolved 325, reused 0, downloaded 19, added 4
+2025-07-07T16:37:55.312Z	Progress: resolved 325, reused 0, downloaded 63, added 16
+2025-07-07T16:37:56.313Z	Progress: resolved 325, reused 0, downloaded 110, added 34
+2025-07-07T16:37:57.317Z	Progress: resolved 325, reused 0, downloaded 206, added 75
+2025-07-07T16:37:58.316Z	Progress: resolved 325, reused 0, downloaded 277, added 99
+2025-07-07T16:37:59.319Z	Progress: resolved 325, reused 0, downloaded 325, added 303
+2025-07-07T16:37:59.475Z	Progress: resolved 325, reused 0, downloaded 325, added 325, done
+2025-07-07T16:38:00.131Z	
+2025-07-07T16:38:00.131Z	devDependencies:
+2025-07-07T16:38:00.131Z	+ wrangler 4.20.5
+2025-07-07T16:38:00.131Z	
+2025-07-07T16:38:00.132Z	╭ Warning ─────────────────────────────────────────────────────────────────────╮
+2025-07-07T16:38:00.132Z	│                                                                              │
+2025-07-07T16:38:00.132Z	│   Ignored build scripts: esbuild, sharp, workerd.                            │
+2025-07-07T16:38:00.132Z	│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+2025-07-07T16:38:00.132Z	│   to run scripts.                                                            │
+2025-07-07T16:38:00.132Z	│                                                                              │
+2025-07-07T16:38:00.132Z	╰──────────────────────────────────────────────────────────────────────────────╯
+2025-07-07T16:38:00.132Z	
+2025-07-07T16:38:00.178Z	Done in 10.6s using pnpm v10.12.1
+2025-07-07T16:38:00.240Z	Executing user deploy command: npx wrangler deploy
+2025-07-07T16:38:02.936Z	
+2025-07-07T16:38:02.937Z	 ⛅️ wrangler 4.20.5 (update available 4.23.0)
+2025-07-07T16:38:02.938Z	─────────────────────────────────────────────
+2025-07-07T16:38:02.947Z	[custom build] Running: pnpm run build
+2025-07-07T16:38:03.616Z	[custom build] 
+2025-07-07T16:38:03.616Z	[custom build] > zmail@1.0.0 build /opt/buildhome/repo
+2025-07-07T16:38:03.617Z	[custom build] > pnpm --filter frontend run build
+2025-07-07T16:38:03.617Z	[custom build] 
+2025-07-07T16:38:03.617Z	[custom build] 
+2025-07-07T16:38:04.320Z	[custom build] 
+2025-07-07T16:38:04.321Z	[custom build] > @zmail/frontend@0.1.0 build /opt/buildhome/repo/frontend
+2025-07-07T16:38:04.321Z	[custom build] > tsc && vite build
+2025-07-07T16:38:04.321Z	[custom build] 
+2025-07-07T16:38:04.321Z	[custom build] 
+2025-07-07T16:38:10.818Z	[custom build] src/components/MailboxInfo.tsx(97,28): error TS2339: Property 'secret' does not exist on type 'Mailbox'.
+2025-07-07T16:38:10.825Z	[custom build] src/components/MailboxInfo.tsx(103,66): error TS2339: Property 'secret' does not exist on type 'Mailbox'.
+2025-07-07T16:38:10.826Z	[custom build] src/components/routes.ts(1,22): error TS2307: Cannot find module 'hono' or its corresponding type declarations.
+2025-07-07T16:38:10.827Z	[custom build] src/components/routes.ts(2,22): error TS2307: Cannot find module 'hono/cors' or its corresponding type declarations.
+2025-07-07T16:38:10.827Z	[custom build] src/components/routes.ts(3,20): error TS2307: Cannot find module './types' or its corresponding type declarations.
+2025-07-07T16:38:10.828Z	[custom build] src/components/routes.ts(13,8): error TS2307: Cannot find module './database' or its corresponding type declarations.
+2025-07-07T16:38:10.829Z	[custom build] src/components/routes.ts(14,40): error TS2307: Cannot find module './utils' or its corresponding type declarations.
+2025-07-07T16:38:10.832Z	[custom build] src/components/routes.ts(28,15): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.833Z	[custom build] src/components/routes.ts(33,25): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.833Z	[custom build] src/components/routes.ts(56,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.834Z	[custom build] src/components/routes.ts(98,43): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.834Z	[custom build] src/components/routes.ts(119,46): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.835Z	[custom build] src/components/routes.ts(136,50): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.835Z	[custom build] src/components/routes.ts(159,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.835Z	[custom build] src/components/routes.ts(180,47): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.836Z	[custom build] src/components/routes.ts(205,40): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.836Z	[custom build] src/components/routes.ts(257,38): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:10.836Z	[custom build] 
+2025-07-07T16:38:10.898Z	[custom build] /opt/buildhome/repo/frontend:
+2025-07-07T16:38:10.900Z	[custom build]  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zmail/frontend@0.1.0 build: `tsc && vite build`
+2025-07-07T16:38:10.901Z	[custom build] Exit status 2
+2025-07-07T16:38:10.903Z	[custom build] 
+2025-07-07T16:38:10.970Z	[custom build]  ELIFECYCLE  Command failed with exit code 2.
+2025-07-07T16:38:10.972Z	[custom build] 
+2025-07-07T16:38:11.095Z	✘ [ERROR] Error: Command failed with exit code 2: pnpm run build
+2025-07-07T16:38:11.095Z	
+2025-07-07T16:38:11.095Z	  
+2025-07-07T16:38:11.096Z	  > zmail@1.0.0 build /opt/buildhome/repo
+2025-07-07T16:38:11.096Z	  > pnpm --filter frontend run build
+2025-07-07T16:38:11.098Z	  
+2025-07-07T16:38:11.098Z	  
+2025-07-07T16:38:11.098Z	  > @zmail/frontend@0.1.0 build /opt/buildhome/repo/frontend
+2025-07-07T16:38:11.099Z	  > tsc && vite build
+2025-07-07T16:38:11.099Z	  
+2025-07-07T16:38:11.099Z	  src/components/MailboxInfo.tsx(97,28): error TS2339: Property 'secret' does not exist on type 'Mailbox'.
+2025-07-07T16:38:11.102Z	  src/components/MailboxInfo.tsx(103,66): error TS2339: Property 'secret' does not exist on type 'Mailbox'.
+2025-07-07T16:38:11.102Z	  src/components/routes.ts(1,22): error TS2307: Cannot find module 'hono' or its corresponding type declarations.
+2025-07-07T16:38:11.102Z	  src/components/routes.ts(2,22): error TS2307: Cannot find module 'hono/cors' or its corresponding type declarations.
+2025-07-07T16:38:11.103Z	  src/components/routes.ts(3,20): error TS2307: Cannot find module './types' or its corresponding type declarations.
+2025-07-07T16:38:11.103Z	  src/components/routes.ts(13,8): error TS2307: Cannot find module './database' or its corresponding type declarations.
+2025-07-07T16:38:11.103Z	  src/components/routes.ts(14,40): error TS2307: Cannot find module './utils' or its corresponding type declarations.
+2025-07-07T16:38:11.104Z	  src/components/routes.ts(28,15): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.104Z	  src/components/routes.ts(33,25): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.104Z	  src/components/routes.ts(56,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.104Z	  src/components/routes.ts(98,43): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.105Z	  src/components/routes.ts(119,46): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.105Z	  src/components/routes.ts(136,50): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.105Z	  src/components/routes.ts(159,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.106Z	  src/components/routes.ts(180,47): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.106Z	  src/components/routes.ts(205,40): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.107Z	  src/components/routes.ts(257,38): error TS7006: Parameter 'c' implicitly has an 'any' type.
+2025-07-07T16:38:11.107Z	  /opt/buildhome/repo/frontend:
+2025-07-07T16:38:11.107Z	   ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zmail/frontend@0.1.0 build: `tsc && vite build`
+2025-07-07T16:38:11.108Z	  Exit status 2
+2025-07-07T16:38:11.108Z	   ELIFECYCLE  Command failed with exit code 2.
+2025-07-07T16:38:11.108Z	      at makeError (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:63801:18)
+2025-07-07T16:38:11.108Z	      at handlePromise (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:64279:29)
+2025-07-07T16:38:11.108Z	      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-07-07T16:38:11.108Z	      at async runCustomBuild (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:81248:7)
+2025-07-07T16:38:11.108Z	      at async getEntry (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:81397:3)
+2025-07-07T16:38:11.109Z	      at async Object.handler (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:81869:23)
+2025-07-07T16:38:11.109Z	      at async Object.handler (/opt/buildhome/repo/node_modules/.pnpm/wrangler@4.20.5_@cloudflare+workers-types@4.20250620.0/node_modules/wrangler/wrangler-dist/cli.js:78718:7) {
+2025-07-07T16:38:11.109Z	    shortMessage: 'Command failed with exit code 2: pnpm run build',
+2025-07-07T16:38:11.110Z	    command: 'pnpm run build',
+2025-07-07T16:38:11.110Z	    escapedCommand: 'pnpm run build',
+2025-07-07T16:38:11.110Z	    exitCode: 2,
+2025-07-07T16:38:11.110Z	    signal: undefined,
+2025-07-07T16:38:11.111Z	    signalDescription: undefined,
+2025-07-07T16:38:11.111Z	    stdout: '\n' +
+2025-07-07T16:38:11.111Z	      '> zmail@1.0.0 build /opt/buildhome/repo\n' +
+2025-07-07T16:38:11.111Z	      '> pnpm --filter frontend run build\n' +
+2025-07-07T16:38:11.112Z	      '\n' +
+2025-07-07T16:38:11.112Z	      '\n' +
+2025-07-07T16:38:11.112Z	      '> @zmail/frontend@0.1.0 build /opt/buildhome/repo/frontend\n' +
+2025-07-07T16:38:11.112Z	      '> tsc && vite build\n' +
+2025-07-07T16:38:11.115Z	      '\n' +
+2025-07-07T16:38:11.115Z	      "src/components/MailboxInfo.tsx(97,28): error TS2339: Property 'secret' does not exist on type 'Mailbox'.\n" +
+2025-07-07T16:38:11.115Z	      "src/components/MailboxInfo.tsx(103,66): error TS2339: Property 'secret' does not exist on type 'Mailbox'.\n" +
+2025-07-07T16:38:11.116Z	      "src/components/routes.ts(1,22): error TS2307: Cannot find module 'hono' or its corresponding type declarations.\n" +
+2025-07-07T16:38:11.117Z	      "src/components/routes.ts(2,22): error TS2307: Cannot find module 'hono/cors' or its corresponding type declarations.\n" +
+2025-07-07T16:38:11.117Z	      "src/components/routes.ts(3,20): error TS2307: Cannot find module './types' or its corresponding type declarations.\n" +
+2025-07-07T16:38:11.117Z	      "src/components/routes.ts(13,8): error TS2307: Cannot find module './database' or its corresponding type declarations.\n" +
+2025-07-07T16:38:11.117Z	      "src/components/routes.ts(14,40): error TS2307: Cannot find module './utils' or its corresponding type declarations.\n" +
+2025-07-07T16:38:11.120Z	      "src/components/routes.ts(28,15): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(33,25): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(56,35): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(98,43): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(119,46): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(136,50): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(159,35): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(180,47): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(205,40): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      "src/components/routes.ts(257,38): error TS7006: Parameter 'c' implicitly has an 'any' type.\n" +
+2025-07-07T16:38:11.121Z	      '/opt/buildhome/repo/frontend:\n' +
+2025-07-07T16:38:11.122Z	      ' ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zmail/frontend@0.1.0 build: `tsc && vite build`\n' +
+2025-07-07T16:38:11.122Z	      'Exit status 2\n' +
+2025-07-07T16:38:11.122Z	      ' ELIFECYCLE  Command failed with exit code 2.',
+2025-07-07T16:38:11.122Z	    stderr: '',
+2025-07-07T16:38:11.122Z	    failed: true,
+2025-07-07T16:38:11.122Z	    timedOut: false,
+2025-07-07T16:38:11.122Z	    isCanceled: false,
+2025-07-07T16:38:11.122Z	    killed: false
+2025-07-07T16:38:11.122Z	  }
+2025-07-07T16:38:11.122Z	
+2025-07-07T16:38:11.122Z	
+2025-07-07T16:38:11.129Z	✘ [ERROR] Running custom build `pnpm run build` failed. There are likely more logs from your build command above.
+2025-07-07T16:38:11.129Z	
+2025-07-07T16:38:11.129Z	
+2025-07-07T16:38:11.130Z	
+2025-07-07T16:38:11.130Z	
+2025-07-07T16:38:11.130Z	Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+2025-07-07T16:38:11.139Z	🪵  Logs were written to "/opt/buildhome/.config/.wrangler/logs/wrangler-2025-07-07_16-38-02_028.log"
+2025-07-07T16:38:11.336Z	Failed: error occurred while running deploy command
