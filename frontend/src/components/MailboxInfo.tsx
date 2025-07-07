@@ -89,6 +89,24 @@ const MailboxInfo: React.FC<MailboxInfoProps> = ({
         </div>
       </div>
       
+      <div className="mb-4">
+        <p className="text-muted-foreground">{t('mailbox.secret')}</p>
+        <div className="flex items-center space-x-2">
+          <input
+            type="text"
+            value={mailbox.secret}
+            readOnly
+            className="w-full px-2 py-1 border rounded bg-gray-50 text-xs font-mono"
+          />
+          <button
+            className="px-2 py-1 bg-primary text-primary-foreground rounded"
+            onClick={() => navigator.clipboard.writeText(mailbox.secret)}
+          >
+            {t('common.copy')}
+          </button>
+        </div>
+      </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
         <div>
           <p className="text-muted-foreground">{t('mailbox.created')}</p>

@@ -1,0 +1,12 @@
+{
+  "secret": "邮箱密钥",
+  "secretPlaceholder": "请输入邮箱密钥（16位）",
+  "secretLoginBtn": "密钥登录",
+  "secretLoginFailed": "密钥无效或邮箱不存在",
+  "common": {
+    "copy": "复制",
+    "delete": "删除",
+    "confirm": "确认",
+    "cancel": "取消"
+  }
+} 

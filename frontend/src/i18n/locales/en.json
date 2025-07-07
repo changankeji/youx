@@ -1,0 +1,12 @@
+{
+  "secret": "Mailbox Secret",
+  "secretPlaceholder": "Enter mailbox secret (16 chars)",
+  "secretLoginBtn": "Login with Secret",
+  "secretLoginFailed": "Invalid secret or mailbox not found",
+  "common": {
+    "copy": "Copy",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  }
+} 

@@ -1,9 +1,10 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import EmailList from '../components/EmailList';
 import { MailboxContext } from '../contexts/MailboxContext';
 import Container from '../components/Container';
+import { API_BASE_URL } from '../config';
 
 // 添加结构化数据组件
 const StructuredData: React.FC = () => {
@@ -42,11 +43,35 @@ const HomePage: React.FC = () => {
     emails, 
     selectedEmail, 
     setSelectedEmail, 
-    isEmailsLoading
+    isEmailsLoading,
+    setMailbox
   } = useContext(MailboxContext);
+  const [secretInput, setSecretInput] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
   
   // 使用ref来跟踪是否已经处理过404错误
   const handlingNotFoundRef = useRef(false);
+  
+  // 密钥登录处理
+  const handleSecretLogin = async () => {
+    setLoginError('');
+    setLoginLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/mailboxes/by-secret/${secretInput}`);
+      const data = await res.json();
+      if (data.success && data.mailbox) {
+        setMailbox(data.mailbox);
+        setSelectedEmail(null);
+      } else {
+        setLoginError(t('mailbox.secretLoginFailed'));
+      }
+    } catch (e) {
+      setLoginError(t('mailbox.secretLoginFailed'));
+    } finally {
+      setLoginLoading(false);
+    }
+  };
   
   if (isLoading) {
     return (
@@ -61,6 +86,24 @@ const HomePage: React.FC = () => {
   return (
     <Container>
       <StructuredData />
+      {/* 顶部密钥登录框 */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-6">
+        <input
+          type="text"
+          placeholder={t('mailbox.secretPlaceholder')}
+          value={secretInput}
+          onChange={e => setSecretInput(e.target.value)}
+          className="border rounded px-2 py-1 w-64 font-mono"
+        />
+        <button
+          className="px-4 py-1 bg-primary text-primary-foreground rounded"
+          onClick={handleSecretLogin}
+          disabled={loginLoading}
+        >
+          {t('mailbox.secretLoginBtn')}
+        </button>
+        {loginError && <span className="text-red-500 text-xs ml-2">{loginError}</span>}
+      </div>
       <EmailList 
         emails={emails} 
         selectedEmailId={selectedEmail}

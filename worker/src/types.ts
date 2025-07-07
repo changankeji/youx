@@ -14,6 +14,7 @@ export interface Mailbox {
   expiresAt: number;
   ipAddress: string;
   lastAccessed: number;
+  secret: string;
 }
 
 // 创建邮箱参数
@@ -21,6 +22,7 @@ export interface CreateMailboxParams {
   address: string;
   expiresInHours: number;
   ipAddress: string;
+  secret: string;
 }
 
 // 邮件类型

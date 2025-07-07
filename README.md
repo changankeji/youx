@@ -1,17 +1,3 @@
-# <div align="center">本程序为二改内容   修改内容如下</div>
- <p>
-    <a href="https://mail.mdzz.uk" target="_blank"><strong>🌐 在线体验</strong></a> •
-    <a href="#功能特点"><strong>时间年限修改为100年</strong></a> •
-    <a href="#快速部署"><strong>添加了api  可以自动创建邮箱  返回内容</strong></a> •
-    <a href="#本地开发"><strong>💻 本地开发</strong></a> •
-    <a href="#技术栈"><strong>🔧 技术栈</strong></a>
-  POST /api/auto-mail
-自动生成一个邮箱，并自动生成一封内容为该邮箱地址的邮件，直接返回该邮件的txt文本（即邮箱地址本身）。
-GET /api/last-mail/:address
-输入邮箱地址，返回该邮箱收到的最新一封邮件的内容（txt文本）。如果没有邮件或邮箱不存在，会返回相应提示。
-你只需重新部署 worker 服务即可使用这两个API。
-如需API使用示例或有其他需求，欢迎继续提问！
-  </p>
 # <div align="center">🚀 ZMAIL - 24小时临时邮箱服务</div>
 
 <div align="center">
@@ -190,7 +176,6 @@ ZMAIL 现在采用全新的一体化部署方式，前端和后端整合为一�
 
 ---
 
-
 ## 💻 本地开发
 
 ### 🚀 开发
@@ -271,3 +256,114 @@ pnpm run deploy
 ## 📄 许可证
 
 [MIT License](./LICENSE)
+
+# 部署指南
+
+本项目包含前端（React）和后端（Cloudflare Worker）。请按如下步骤部署：
+
+---
+
+## 一、前置条件
+
+- Node.js 16+（建议 LTS 版本）
+- pnpm 包管理器（推荐）
+- Cloudflare 账号（用于部署 Worker）
+- Wrangler CLI（Cloudflare Worker 部署工具）
+
+---
+
+## 二、本地开发
+
+### 1. 安装依赖
+
+在项目根目录下执行：
+
+```bash
+pnpm install
+```
+
+### 2. 启动前端开发服务器
+
+```bash
+cd frontend
+pnpm dev
+```
+
+前端默认运行在 http://localhost:5173
+
+### 3. 启动 Worker 本地开发（需 wrangler）
+
+```bash
+cd worker
+pnpm install
+pnpm run dev
+```
+
+Worker 默认运行在 http://localhost:8787
+
+---
+
+## 三、生产部署
+
+### 1. 构建前端
+
+```bash
+cd frontend
+pnpm build
+```
+
+构建产物在 `frontend/dist` 目录，可部署到任意静态托管（如 Cloudflare Pages、Vercel、Netlify、静态服务器等）。
+
+### 2. 配置 Cloudflare Worker
+
+- 进入 `worker/` 目录，配置 `wrangler.toml`，填写你的 Cloudflare 账号信息、绑定数据库（如 D1）等。
+- 参考官方文档：https://developers.cloudflare.com/workers/wrangler/configuration/
+
+### 3. 部署 Worker 到 Cloudflare
+
+```bash
+cd worker
+pnpm run deploy
+```
+
+首次部署会提示登录 Cloudflare 账号。
+
+---
+
+## 四、环境变量说明
+
+- `VITE_EMAIL_DOMAIN`：前端和 Worker 可配置邮箱域名（可选）。
+- 数据库（D1）需在 Cloudflare 控制台创建并绑定。
+
+---
+
+## 五、常见问题
+
+- 前端和 Worker 可分开部署，API 地址需在 `frontend/src/config.ts` 配置。
+- 若遇到 CORS 问题，请确保 Worker 端已正确设置跨域。
+- 如需自定义邮箱后缀、密钥长度等，可修改相关源码。
+
+---
+
+## 六、参考命令速查
+
+```bash
+# 安装依赖
+pnpm install
+
+# 前端开发
+cd frontend && pnpm dev
+
+# 前端打包
+cd frontend && pnpm build
+
+# Worker 本地开发
+cd worker && pnpm run dev
+
+# Worker 部署
+cd worker && pnpm run deploy
+```
+
+---
+
+如有疑问请提交 issue 或联系作者。

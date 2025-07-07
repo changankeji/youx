@@ -12,6 +12,7 @@ import {
   getAttachment
 } from './database';
 import { generateRandomAddress, } from './utils';
+import { randomBytes } from 'crypto';
 
 // 创建 Hono 应用
 const app = new Hono<{ Bindings: Env }>();
@@ -51,6 +52,19 @@ app.get('/api/config', (c) => {
   }
 });
 
+// 生成16位密钥（兼容Node.js和Cloudflare Worker）
+function generateSecret() {
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    // Worker环境
+    return Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2, '0')).join('');
+  } else if (typeof require !== 'undefined') {
+    // Node.js环境
+    return require('crypto').randomBytes(16).toString('hex');
+  } else {
+    // 兜底
+    return Math.random().toString(36).slice(2, 18).padEnd(16, '0');
+  }
+}
 
 // 创建邮箱
 app.post('/api/mailboxes', async (c) => {
@@ -62,7 +76,8 @@ app.post('/api/mailboxes', async (c) => {
       return c.json({ success: false, error: '无效的邮箱地址' }, 400);
     }
     
-    const expiresInHours = 100 * 365 * 24; // 固定100年有效期，实现永久邮箱
+    // 生成16位密钥
+    const secret = generateSecret();
     
     // 获取客户端IP
     const ip = c.req.header('CF-Connecting-IP') || 'unknown';
@@ -79,8 +94,9 @@ app.post('/api/mailboxes', async (c) => {
     // 创建邮箱
     const mailbox = await createMailbox(c.env.DB, {
       address,
-      expiresInHours,
+      expiresInHours: 0, // 已废弃
       ipAddress: ip,
+      secret,
     });
     
     return c.json({ success: true, mailbox });
@@ -267,6 +283,23 @@ app.delete('/api/emails/:id', async (c) => {
       error: '删除邮件失败',
       message: error instanceof Error ? error.message : String(error)
     }, 500);
+  }
+});
+
+// 通过密钥获取邮箱及其最新邮件
+app.get('/api/mailboxes/by-secret/:secret', async (c) => {
+  try {
+    const secret = c.req.param('secret');
+    // 查询邮箱
+    const result = await c.env.DB.prepare('SELECT * FROM mailboxes WHERE secret = ?').bind(secret).first();
+    if (!result) {
+      return c.json({ success: false, error: '密钥无效或邮箱不存在' }, 404);
+    }
+    // 查询最新邮件
+    const emails = await c.env.DB.prepare('SELECT * FROM emails WHERE mailbox_id = ? ORDER BY received_at DESC LIMIT 10').bind(result.id).all();
+    return c.json({ success: true, mailbox: result, emails: emails.results || [] });
+  } catch (error) {
+    return c.json({ success: false, error: '查询失败', message: error instanceof Error ? error.message : String(error) }, 500);
   }
 });
 

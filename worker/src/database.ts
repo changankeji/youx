@@ -25,7 +25,7 @@ const CHUNK_SIZE = 500000; // 约500KB
 export async function initializeDatabase(db: D1Database): Promise<void> {
   try {
     // 创建邮箱表
-    await db.exec(`CREATE TABLE IF NOT EXISTS mailboxes (id TEXT PRIMARY KEY, address TEXT UNIQUE NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, ip_address TEXT, last_accessed INTEGER NOT NULL);`);
+    await db.exec(`CREATE TABLE IF NOT EXISTS mailboxes (id TEXT PRIMARY KEY, address TEXT UNIQUE NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, ip_address TEXT, last_accessed INTEGER NOT NULL, secret TEXT NOT NULL);`);
     
     // 创建邮件表
     await db.exec(`CREATE TABLE IF NOT EXISTS emails (id TEXT PRIMARY KEY, mailbox_id TEXT NOT NULL, from_address TEXT NOT NULL, from_name TEXT, to_address TEXT NOT NULL, subject TEXT, text_content TEXT, html_content TEXT, received_at INTEGER NOT NULL, has_attachments BOOLEAN DEFAULT FALSE, is_read BOOLEAN DEFAULT FALSE, FOREIGN KEY (mailbox_id) REFERENCES mailboxes(id) ON DELETE CASCADE);`);
@@ -65,12 +65,13 @@ export async function createMailbox(db: D1Database, params: CreateMailboxParams)
     id: generateId(),
     address: params.address,
     createdAt: now,
-    expiresAt: calculateExpiryTimestamp(params.expiresInHours),
+    expiresAt: 9999999999, // 永久有效
     ipAddress: params.ipAddress,
     lastAccessed: now,
+    secret: params.secret,
   };
   
-  await db.prepare(`INSERT INTO mailboxes (id, address, created_at, expires_at, ip_address, last_accessed) VALUES (?, ?, ?, ?, ?, ?)`).bind(mailbox.id, mailbox.address, mailbox.createdAt, mailbox.expiresAt, mailbox.ipAddress, mailbox.lastAccessed).run();
+  await db.prepare(`INSERT INTO mailboxes (id, address, created_at, expires_at, ip_address, last_accessed, secret) VALUES (?, ?, ?, ?, ?, ?, ?)`).bind(mailbox.id, mailbox.address, mailbox.createdAt, mailbox.expiresAt, mailbox.ipAddress, mailbox.lastAccessed, mailbox.secret).run();
   
   return mailbox;
 }
@@ -83,20 +84,21 @@ export async function createMailbox(db: D1Database, params: CreateMailboxParams)
  */
 export async function getMailbox(db: D1Database, address: string): Promise<Mailbox | null> {
   const now = getCurrentTimestamp();
-  const result = await db.prepare(`SELECT id, address, created_at, expires_at, ip_address, last_accessed FROM mailboxes WHERE address = ? AND expires_at > ?`).bind(address, now).first();
+  const result = await db.prepare(`SELECT id, address, created_at, expires_at, ip_address, last_accessed, secret FROM mailboxes WHERE address = ? AND expires_at > ?`).bind(address, now).first();
   
   if (!result) return null;
   
   // 更新最后访问时间
-  await db.prepare(`UPDATE mailboxes SET last_accessed = ? WHERE id = ?`).bind(now, result.id).run();
+  await db.prepare(`UPDATE mailboxes SET last_accessed = ? WHERE id = ?`).bind(now, (result as any).id).run();
   
   return {
-    id: result.id as string,
-    address: result.address as string,
-    createdAt: result.created_at as number,
-    expiresAt: result.expires_at as number,
-    ipAddress: result.ip_address as string,
+    id: (result as any).id as string,
+    address: (result as any).address as string,
+    createdAt: (result as any).created_at as number,
+    expiresAt: (result as any).expires_at as number,
+    ipAddress: (result as any).ip_address as string,
     lastAccessed: now,
+    secret: (result as any).secret as string,
   };
 }
 
@@ -112,7 +114,7 @@ export async function getMailboxes(db: D1Database, ipAddress: string): Promise<M
   
   if (!results.results) return [];
   
-  return results.results.map(result => ({
+  return results.results.map((result: any) => ({
     id: result.id as string,
     address: result.address as string,
     createdAt: result.created_at as number,
